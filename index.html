@@ -10,13 +10,19 @@
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
     window.onload = function() {
-      // Check if the page has already been reloaded
-      if (!sessionStorage.getItem('hasReloaded')) {
-        sessionStorage.setItem('hasReloaded', 'true'); // Mark as reloaded
-        location.reload(); // Reload the page
+      let reloadCount = sessionStorage.getItem('reloadCount');
+
+      if (!reloadCount) {
+        reloadCount = 0;
+      }
+
+      reloadCount = Number(reloadCount) + 1;
+      sessionStorage.setItem('reloadCount', reloadCount);
+      if (reloadCount < 3) { // First load + two reloads = 3 total visits
+        location.reload();
       }
     };
-    </script>
+  </script>
 </head>
 
 <body>
